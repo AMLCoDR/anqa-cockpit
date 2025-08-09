@@ -1,0 +1,34 @@
+{
+  "name": "anqa-cockpit",
+  "version": "1.0.0",
+  "description": "ANQA System Cockpit - Mission Control Dashboard",
+  "main": "cockpit-api.js",
+  "scripts": {
+    "start": "node cockpit-api.js",
+    "dev": "nodemon cockpit-api.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "anqa",
+    "cockpit",
+    "dashboard",
+    "monitoring",
+    "system-management"
+  ],
+  "author": "ANQA Team",
+  "license": "MIT",
+  "dependencies": {
+    "chokidar": "^3.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "socket.io": "^4.8.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

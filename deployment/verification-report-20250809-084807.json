@@ -1,0 +1,43 @@
+{
+        "timestamp": "2025-08-08 20:48:07 UTC",
+        "verification_results": {
+            "service_startup": {
+                "status": "unknown",
+                "details": []
+            },
+            "api_endpoints": {
+                "status": "unknown",
+                "details": []
+            },
+            "database_connectivity": {
+                "status": "unknown",
+                "details": []
+            },
+            "frontend_functionality": {
+                "status": "unknown",
+                "details": []
+            },
+            "port_configurations": {
+                "status": "unknown",
+                "details": []
+            },
+            "process_status": {
+                "status": "unknown",
+                "details": []
+            },
+            "configuration_compliance": {
+                "status": "unknown",
+                "details": []
+            },
+            "performance_metrics": {
+                "status": "unknown",
+                "details": []
+            }
+        },
+        "summary": {
+            "total_checks": 0,
+            "successful_checks": 0,
+            "failed_checks": 0,
+            "warning_checks": 0
+        }
+    }

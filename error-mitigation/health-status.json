@@ -1,0 +1,71 @@
+{
+  "components": {
+    "cpu": {
+      "status": "healthy",
+      "details": "CPU usage normal",
+      "metrics": "15.2%",
+      "last_check": "2025-08-08 20:48:00 UTC"
+    },
+    "memory": {
+      "status": "warning",
+      "details": "High memory usage detected",
+      "metrics": "99%",
+      "last_check": "2025-08-08 20:48:00 UTC"
+    },
+    "disk": {
+      "status": "warning",
+      "details": "High disk usage detected",
+      "metrics": "94%",
+      "last_check": "2025-08-08 20:48:00 UTC"
+    },
+    "backend": {
+      "status": "healthy",
+      "details": "Backend service responding normally",
+      "metrics": "HTTP 200 (10ms)",
+      "last_check": "2025-08-08 20:48:00 UTC"
+    },
+    "frontend": {
+      "status": "healthy",
+      "details": "Frontend service responding normally",
+      "metrics": "HTTP 200 (9ms)",
+      "last_check": "2025-08-08 20:48:00 UTC"
+    },
+    "database": {
+      "status": "healthy",
+      "details": "Database connection successful",
+      "metrics": "connected (16ms) (37ms)",
+      "last_check": "2025-08-08 20:48:00 UTC"
+    },
+    "node_processes": {
+      "status": "healthy",
+      "details": "Node.js processes running normally",
+      "metrics": "       3 processes",
+      "last_check": "2025-08-08 20:48:00 UTC"
+    },
+    "postgres_processes": {
+      "status": "healthy",
+      "details": "PostgreSQL processes running normally",
+      "metrics": "      13 processes",
+      "last_check": "2025-08-08 20:48:00 UTC"
+    },
+    "ports": {
+      "status": "healthy",
+      "details": "All required ports active",
+      "metrics": "3/3 active",
+      "last_check": "2025-08-08 20:48:00 UTC"
+    },
+    "api_endpoints": {
+      "status": "healthy",
+      "details": "All API endpoints responding",
+      "metrics": "0 failed",
+      "last_check": "2025-08-08 20:48:00 UTC"
+    }
+  },
+  "last_update": "2025-08-08 20:48:00 UTC",
+  "overall_status": "warning",
+  "summary": {
+    "critical": 0,
+    "warning": 2,
+    "healthy": 8
+  }
+}

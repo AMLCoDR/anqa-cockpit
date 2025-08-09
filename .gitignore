@@ -1,0 +1,72 @@
+# ANQA System Optimization - Git Ignore Configuration
+# Cockpit and Monitoring System
+
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables and secrets
+.env
+.env.local
+.env.production
+*.key
+*.pem
+credentials.env
+
+# Database files (exclude local development databases)
+*.db
+*.sqlite
+*.sqlite3
+data/
+cockpit/data/
+*/data/
+
+# Build outputs
+build/
+dist/
+out/
+
+# IDE and editor files
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Logs and monitoring
+*.log
+logs/
+*.pid
+cockpit/command.log
+*/health-monitor.log
+
+# Cache files
+.cache/
+.eslintcache
+
+# Backup files
+*backup*
+*.bak
+
+# Local development specific
+local-config.json
+dev-notes.md
+test-*.md
+ui-update-test.md

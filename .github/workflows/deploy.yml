@@ -1,0 +1,179 @@
+name: Deploy ANQA Cockpit to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: cockpit/package-lock.json
+        
+    - name: Install Cockpit Dependencies
+      working-directory: ./cockpit
+      run: npm ci
+      
+    - name: Security Audit
+      working-directory: ./cockpit
+      run: npm audit --audit-level high
+      
+    - name: Prepare Deployment Package
+      run: |
+        # Create deployment directory
+        mkdir -p dist
+        
+        # Copy cockpit system
+        cp cockpit/index.html dist/
+        cp cockpit/*.js dist/ 2>/dev/null || true
+        cp cockpit/*.css dist/ 2>/dev/null || true
+        cp cockpit/*.json dist/ 2>/dev/null || true
+        
+        # Copy static assets
+        cp cockpit/*.png dist/ 2>/dev/null || true
+        cp cockpit/*.svg dist/ 2>/dev/null || true
+        
+        # Copy documentation
+        cp README.md dist/
+        
+        # Create a simple landing page
+        cat > dist/index.html << 'EOF'
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>ANQA Cockpit - AI Development Monitoring</title>
+            <style>
+                body {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    margin: 0;
+                    padding: 0;
+                    background: linear-gradient(135deg, #0f0f23, #1a1a2e);
+                    color: white;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .container {
+                    text-align: center;
+                    max-width: 800px;
+                    padding: 40px;
+                }
+                h1 {
+                    font-size: 3em;
+                    margin-bottom: 20px;
+                    color: #00d4ff;
+                }
+                .subtitle {
+                    font-size: 1.2em;
+                    margin-bottom: 40px;
+                    color: #ccc;
+                }
+                .features {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    gap: 20px;
+                    margin: 40px 0;
+                }
+                .feature {
+                    background: rgba(255, 255, 255, 0.1);
+                    padding: 20px;
+                    border-radius: 10px;
+                    border: 1px solid #333;
+                }
+                .feature h3 {
+                    color: #00d4ff;
+                    margin-bottom: 10px;
+                }
+                .cta-button {
+                    display: inline-block;
+                    padding: 15px 30px;
+                    background: linear-gradient(135deg, #00d4ff, #0099cc);
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    margin: 10px;
+                    transition: transform 0.3s ease;
+                }
+                .cta-button:hover {
+                    transform: translateY(-2px);
+                }
+                .status {
+                    margin-top: 40px;
+                    padding: 20px;
+                    background: rgba(46, 213, 115, 0.1);
+                    border: 1px solid #2ed573;
+                    border-radius: 8px;
+                    color: #2ed573;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>🤖 ANQA Cockpit</h1>
+                <p class="subtitle">AI Development Monitoring & Management System</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <h3>📁 File Monitoring</h3>
+                        <p>Real-time tracking of development files with intelligent change detection</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🎯 Milestone Tracking</h3>
+                        <p>Visual progress indicators and phase-based project organization</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🔗 Cursor Integration</h3>
+                        <p>Seamless IDE integration with command bridge system</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🚨 System Monitoring</h3>
+                        <p>Live system metrics and automated health monitoring</p>
+                    </div>
+                </div>
+                
+                <div class="status">
+                    <strong>✅ Status: Production Ready</strong><br>
+                    AI Development Monitoring System Deployed
+                </div>
+                
+                <p style="margin-top: 40px; color: #888;">
+                    <small>
+                        For local development: Run the cockpit system locally to access the full dashboard<br>
+                        Repository: <a href="https://github.com/AMLCoDR/anqa-cockpit" style="color: #00d4ff;">github.com/AMLCoDR/anqa-cockpit</a>
+                    </small>
+                </p>
+            </div>
+        </body>
+        </html>
+        EOF
+        
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
+        force_orphan: true
+        
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: anqa-cockpit-build-${{ github.sha }}
+        path: dist/
+        retention-days: 30
